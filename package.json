@@ -1,0 +1,22 @@
+{
+  "name": "js-data-structures",
+  "version": "1.0.0",
+  "description": "Implmentation of popular data structurs in JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanMat/js-data-structures.git"
+  },
+  "keywords": [
+    "data-structures"
+  ],
+  "author": "DanMat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanMat/js-data-structures/issues"
+  },
+  "homepage": "https://github.com/DanMat/js-data-structures#readme"
+}

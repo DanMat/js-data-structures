@@ -1,13 +1,22 @@
+// JS classes still don't officially support private properties.
+// So, Using a weak map to store the stack items so that they are 
+// inaccessible to the end user.
 const stackItem = new WeakMap();
 
-const getStackInstances = ref => ({
-	itemInstance: stackItem.get(ref),
-	lengthInstance: stackItem.get(ref).length
-});
+// Getter for the stack items
+const getStackInstances = ref => {
+	const { _length, ...items } = stackItem.get(ref);
+	return {
+		itemInstance: items,
+		lengthInstance: _length
+	}
+};
 
-const setStackInstances = ref =>
+// Setter for the stack items
+const setStackInstances = (ref, items = {}, _length = 0) =>
 	stackItem.set(ref, {
-		length: 0
+		...items,
+		_length
 	});
 
 class Stack {
@@ -19,16 +28,18 @@ class Stack {
 		let { itemInstance, lengthInstance } = getStackInstances(this);
 		itemInstance[lengthInstance] = elem;
 		lengthInstance+=1;
+		setStackInstances(this, itemInstance, lengthInstance);
 	}
 
 	pop() {
 		if(this.isEmpty()) {
 			return undefined;
 		}
-		const { itemInstance, lengthInstance } = getStackInstances(this);
+		let { itemInstance, lengthInstance } = getStackInstances(this);
+		lengthInstance-=1;
 		const itemValue = itemInstance[lengthInstance];
 		delete itemInstance[lengthInstance];
-		lengthInstance-=1;
+		setStackInstances(this, itemInstance, lengthInstance);
 		return itemValue;
 	}
 
@@ -47,15 +58,6 @@ class Stack {
 
 	isEmpty() {
 		return getStackInstances(this).lengthInstance === 0;
-	}
-
-	join(separator = ',') {
-		const { itemInstance, lengthInstance } = getStackInstances(this);
-		let joinedStack = '';
-		for(let index = 0; index < lengthInstance; index++) {
-			joinedStack += itemInstance[index] + separator;
-		}
-		return joinedStack;
 	}
 }
 

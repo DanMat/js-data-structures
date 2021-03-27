@@ -16,9 +16,9 @@ class Stack {
 	}
 
 	push(elem) {
-		const { itemInstance, lengthInstance } = getStackInstances(this);
+		let { itemInstance, lengthInstance } = getStackInstances(this);
 		itemInstance[lengthInstance] = elem;
-		lengthInstance++;
+		lengthInstance+=1;
 	}
 
 	pop() {
@@ -28,7 +28,7 @@ class Stack {
 		const { itemInstance, lengthInstance } = getStackInstances(this);
 		const itemValue = itemInstance[lengthInstance];
 		delete itemInstance[lengthInstance];
-		lengthInstance--;
+		lengthInstance-=1;
 		return itemValue;
 	}
 
@@ -47,6 +47,15 @@ class Stack {
 
 	isEmpty() {
 		return getStackInstances(this).lengthInstance === 0;
+	}
+
+	join(separator = ',') {
+		const { itemInstance, lengthInstance } = getStackInstances(this);
+		let joinedStack = '';
+		for(let index = 0; index < lengthInstance; index++) {
+			joinedStack += itemInstance[index] + separator;
+		}
+		return joinedStack;
 	}
 }
 

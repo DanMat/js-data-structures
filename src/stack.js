@@ -1,6 +1,7 @@
 // JS classes still don't officially support private properties.
-// So, Using a weak map to store the stack items so that they are 
-// inaccessible to the end user.
+// So, using a weak map to store the stack items so that they are 
+// inaccessible to the end users using our stack implementation.
+// Also, WeakMap has garbage collection.
 const stackItem = new WeakMap();
 
 // Getter for the stack items
@@ -25,17 +26,29 @@ class Stack {
 	}
 
 	push(elem) {
-		let { itemInstance, lengthInstance } = getStackInstances(this);
+		const stackInstances = getStackInstances(this);
+		const { itemInstance } = stackInstances;
+		let { lengthInstance } = stackInstances;
+
+		// Pushing the new element to the 
+		// stack object which we maintain.
+		// And, bumping up the stack's length.
 		itemInstance[lengthInstance] = elem;
 		lengthInstance+=1;
 		setStackInstances(this, itemInstance, lengthInstance);
 	}
 
 	pop() {
+		// Make sure that the stack is not empty first
 		if(this.isEmpty()) {
 			return undefined;
 		}
-		let { itemInstance, lengthInstance } = getStackInstances(this);
+		const stackInstances = getStackInstances(this);
+		const { itemInstance } = stackInstances;
+		let { lengthInstance } = stackInstances;
+		
+		// Retrive the last item from our stack object to return
+		// And, delete then delete the same from our stack obj
 		lengthInstance-=1;
 		const itemValue = itemInstance[lengthInstance];
 		delete itemInstance[lengthInstance];

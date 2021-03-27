@@ -15,6 +15,7 @@ const decimalToBaseConverter = (decimal, base = 2) => {
 	let decimalToTransform = decimal;
 
 	while(decimalToTransform !== 0) {
+		// We use alphabets to denote digits above 9
 		converter.push(DIGITS[decimalToTransform % base]);
 		decimalToTransform = Math.floor(decimalToTransform/base);
 	}
@@ -24,7 +25,7 @@ const decimalToBaseConverter = (decimal, base = 2) => {
 		transformedNumber += converter.pop();
 	}
 
-	console.log(transformedNumber)
+	console.info(transformedNumber);
 
 	return transformedNumber;
 }

@@ -2,6 +2,7 @@
   "name": "js-data-structures",
   "version": "1.0.0",
   "description": "Implmentation of popular data structurs in JS",
+  "type": "module",
   "main": "dist/bundle.umd.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint \"**/*.js\"",

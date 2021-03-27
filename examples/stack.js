@@ -1,4 +1,4 @@
-const { Stack } = require('../dist/bundle.umd');
+import { Stack } from '../src/index.js';
 
 const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -30,6 +30,4 @@ const decimalToBaseConverter = (decimal, base = 2) => {
 	return transformedNumber;
 }
 
-module.exports = {
-	decimalToBaseConverter
-};
+export { decimalToBaseConverter };

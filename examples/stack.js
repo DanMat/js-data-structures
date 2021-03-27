@@ -2,6 +2,7 @@ import { Stack } from '../src/index.js';
 
 const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+// node -e "import('./stack.js').then(module => { console.log( module.decimalToBaseConverter(123) ) })"
 const decimalToBaseConverter = (decimal, base = 2) => {
 	if(!Number.isInteger(decimal)) {
 		throw new Error('Please enter a decimal number.')
@@ -24,8 +25,6 @@ const decimalToBaseConverter = (decimal, base = 2) => {
 	while(!converter.isEmpty()) {
 		transformedNumber += converter.pop();
 	}
-
-	console.info(transformedNumber);
 
 	return transformedNumber;
 }

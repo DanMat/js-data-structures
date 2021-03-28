@@ -72,6 +72,24 @@ class Stack {
 	isEmpty() {
 		return getStackInstances(this).lengthInstance === 0;
 	}
+
+	toString() {
+		return this.join()
+	}
+
+	join(separator = ',') {
+		// Make sure that the stack is not empty first
+		if(this.isEmpty()) {
+			return '';
+		}
+		const { itemInstance, lengthInstance } = getStackInstances(this);
+		let stringifyStack = itemInstance[0];
+		
+		for(let index = 1; index < lengthInstance; index++) {
+			stringifyStack += separator + itemInstance[index];
+		}
+		return stringifyStack;
+	}
 }
 
 export default Stack;

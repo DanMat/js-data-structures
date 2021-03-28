@@ -48,7 +48,7 @@ class Stack {
 		let { lengthInstance } = stackInstances;
 		
 		// Retrive the last item from our stack object to return
-		// And, delete then delete the same from our stack obj
+		// And, delete the same from our stack obj
 		lengthInstance-=1;
 		const itemValue = itemInstance[lengthInstance];
 		delete itemInstance[lengthInstance];

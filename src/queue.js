@@ -27,12 +27,12 @@ class Queue {
 		setQueueInstances(this);
 	}
 
-	push(elem) {
+	enqueue(elem) {
 		const queueInstances = getQueueInstances(this);
 		const { itemInstance, topInstance } = queueInstances;
 		let { lengthInstance } = queueInstances;
 
-		// Pushing the new element to the 
+		// Enqueue the new element to the 
 		// queue object which we maintain.
 		// And, bumping up the queue's length.
 		itemInstance[lengthInstance] = elem;
@@ -40,7 +40,7 @@ class Queue {
 		setQueueInstances(this, itemInstance, lengthInstance, topInstance);
 	}
 
-	pop() {
+	dequeue() {
 		// Make sure that the queue is not empty first
 		if(this.isEmpty()) {
 			return undefined;
@@ -49,7 +49,7 @@ class Queue {
 		const { itemInstance, lengthInstance } = queueInstances;
 		let { topInstance } = queueInstances;
 		
-		// Retrive the first item from our queue object to return
+		// Retrive the first item from the top of our queue object to return
 		// And, delete the same from our queue obj
 		const itemValue = itemInstance[topInstance];
 		delete itemInstance[topInstance];

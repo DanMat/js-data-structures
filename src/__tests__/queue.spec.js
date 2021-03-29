@@ -21,7 +21,7 @@ describe('Testing the Queue Data Type', () => {
 	});
 
 	test('It should dequeue the first pushed item', () => {
-		for(let index = 0; index < length; index++) {
+		for (let index = 0; index < length; index++) {
 			expect(queue.dequeue()).toBe(numbers[index]);
 			expect(queue.size()).toBe(length - index - 1);
 		}
@@ -32,7 +32,7 @@ describe('Testing the Queue Data Type', () => {
 	test('It should be able to peak the first pushed item without Dequeuing', () => {
 		expect(queue.peek()).toBe(numbers[0]);
 		expect(queue.size()).toBe(length);
-	})
+	});
 
 	test('It should be able to clear all the elements', () => {
 		queue.clear();

@@ -21,7 +21,7 @@ describe('Testing the Stack Data Type', () => {
 	});
 
 	test('It should pop the last pushed item', () => {
-		for(let index = 0; index < length; index++) {
+		for (let index = 0; index < length; index++) {
 			expect(stack.pop()).toBe(numbers[length - index - 1]);
 			expect(stack.size()).toBe(length - index - 1);
 		}
@@ -32,7 +32,7 @@ describe('Testing the Stack Data Type', () => {
 	test('It should be able to peak the last pushed item without popping', () => {
 		expect(stack.peek()).toBe(numbers[length - 1]);
 		expect(stack.size()).toBe(length);
-	})
+	});
 
 	test('It should be able to clear all the elements', () => {
 		stack.clear();

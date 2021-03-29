@@ -7,6 +7,11 @@ module.exports = {
 			impliedStrict: true
 		}
 	},
+	settings: {
+		react: {
+			version: "999.999.999"
+		}
+	},
 	rules: {
 		// Prefer single quotes for strings
 		quotes: ['error', 'single', { avoidEscape: true }],

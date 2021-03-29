@@ -8,9 +8,9 @@
     "lint": "./node_modules/.bin/eslint \"**/*.js\"",
     "build": "./node_modules/.bin/rollup -c",
     "dev": "./node_modules/.bin/rollup -c -w",
-    "test": "./node_modules/.bin/jest --testPathPattern=.{spec,test}.{js,jsx,ts,tsx}",
-    "test:watch": "./node_modules/.bin/jest --testPathPattern=.{spec,test}.{js,jsx,ts,tsx} --watchAll --notify",
-    "coverage": "./node_modules/.bin/jest --testPathPattern=.{spec,test}.{js,jsx,ts,tsx} --coverage",
+    "test": "./node_modules/.bin/jest --testPathPattern=spec",
+    "test:watch": "./node_modules/.bin/jest --testPathPattern=spec --watchAll --notify",
+    "coverage": "./node_modules/.bin/jest --testPathPattern=spec --coverage",
     "pretty": "./node_modules/.bin/prettier --write \"**/*.js\"",
     "clean": "rm -rf dist/*"
   },

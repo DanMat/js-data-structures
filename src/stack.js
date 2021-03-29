@@ -58,7 +58,7 @@ class Stack {
 
 	peek() {
 		const { itemInstance, lengthInstance } = getStackInstances(this);
-		return itemInstance[lengthInstance];
+		return itemInstance[lengthInstance - 1];
 	}
 
 	clear() {

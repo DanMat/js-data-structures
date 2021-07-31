@@ -6,21 +6,25 @@ class Node {
 }
 
 // The elements which are saved inside the linklist
-// can be of any type. So, we give the ability
-// to override the equal method
+// can be of any type.
+
+// So, we give the ability to override the equal method
 const defaultEquals = (a, b) => a === b;
+// The node stringification can be overriden as well
+const defaultStringify = (elem) => elem;
 
 class LinkedList {
-	constructor(equals = defaultEquals) {
+	constructor(equals = defaultEquals, stringifyNode = defaultStringify) {
 		this.head = null;
 		this.count = 0;
 		this.equals = equals;
+		this.stringify = stringifyNode;
 	}
 
 	isIndexOutOfBound(index) {
 		// Make sure that the index is less
 		// than the node count we maintain.
-		return !(index >= 0 && index < this.count);
+		return !(index >= 0 && index < this.size());
 	}
 
 	nodeAtIndex(index) {
@@ -91,7 +95,7 @@ class LinkedList {
 
 	indexOf(element) {
 		let currentNode = this.head;
-		for (let index = 0; index < this.count; index += 1) {
+		for (let index = 0; index < this.size(); index += 1) {
 			if (this.equals(element, currentNode.element)) {
 				return index;
 			}
@@ -103,6 +107,18 @@ class LinkedList {
 	remove(element) {
 		const indexOfNode = this.indexOf(element);
 		return this.removeAtIndex(indexOfNode);
+	}
+
+	toString() {
+		// When the list is empty
+		if (this.head === null) return '';
+		let currentNode = this.head;
+		let objString = this.stringify(currentNode.element);
+		for (let index = 0; index < this.size(); index++) {
+			currentNode = currentNode.next;
+			objString += `,${this.stringify(currentNode.element)}`;
+		}
+		return objString;
 	}
 
 	size() {

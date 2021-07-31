@@ -41,6 +41,10 @@ describe('Testing the LinkedList Data Type', () => {
 
 		// Test index of element not in list
 		expect(linkedList.indexOf(100)).toBe(-1);
+
+		// Insert at 0th position
+		linkedList.insertAtIndex(0, 100);
+		expect(linkedList.indexOf(100)).toBe(0);
 	});
 
 	test('It should be able to delete by index', () => {
@@ -67,5 +71,16 @@ describe('Testing the LinkedList Data Type', () => {
 		// Remove out of bound index
 		expect(linkedList.removeAtIndex(100)).toBe(null);
 		expect(linkedList.isEmpty()).toBe(true);
+	});
+
+	test('Handles edge cases', () => {
+		const linkedListInstance = new LinkedList();
+
+		// Random index of empty list
+		expect(linkedListInstance.nodeAtIndex(100)).toBe(null);
+		// Inserting out of index
+		expect(linkedListInstance.insertAtIndex(100, 100)).toBe(null);
+		// toString of empty list
+		expect(linkedListInstance.toString()).toBe('');
 	});
 });

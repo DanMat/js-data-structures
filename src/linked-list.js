@@ -5,10 +5,16 @@ class Node {
 	}
 }
 
+// The elements which are saved inside the linklist
+// can be of any type. So, we give the ability
+// to override the equal method
+const defaultEquals = (a, b) => a === b;
+
 class LinkedList {
-	constructor() {
+	constructor(equals = defaultEquals) {
 		this.head = null;
 		this.count = 0;
+		this.equals = equals;
 	}
 
 	isIndexOutOfBound(index) {
@@ -83,8 +89,28 @@ class LinkedList {
 		return true;
 	}
 
+	indexOf(element) {
+		let currentNode = this.head;
+		for (let index = 0; index < this.count; index += 1) {
+			if (this.equals(element, currentNode.element)) {
+				return index;
+			}
+			currentNode = currentNode.next;
+		}
+		return -1;
+	}
+
+	remove(element) {
+		const indexOfNode = this.indexOf(element);
+		return this.removeAtIndex(indexOfNode);
+	}
+
 	size() {
 		return this.count;
+	}
+
+	isEmpty() {
+		return this.size() === 0;
 	}
 }
 

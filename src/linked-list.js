@@ -1,9 +1,4 @@
-class Node {
-	constructor(element) {
-		this.element = element;
-		this.next = null;
-	}
-}
+import { Node } from './utils/linked-list';
 
 // The elements which are saved inside the linklist
 // can be of any type.

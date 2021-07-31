@@ -2,7 +2,7 @@ import { Stack } from '../index.js';
 
 describe('Testing the Stack Data Type', () => {
 	const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	const length = numbers.length;
+	const { length } = numbers;
 	let stack;
 
 	beforeEach(() => {
@@ -14,7 +14,7 @@ describe('Testing the Stack Data Type', () => {
 		const stackToArray = stack
 			.toString()
 			.split(',')
-			.map((strInt) => parseInt(strInt));
+			.map((strInt) => parseInt(strInt, 10));
 
 		expect(stack.size()).toBe(length);
 		expect(stackToArray).toEqual(numbers);

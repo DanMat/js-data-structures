@@ -2,7 +2,7 @@ import { Queue } from '../index.js';
 
 describe('Testing the Queue Data Type', () => {
 	const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	const length = numbers.length;
+	const { length } = numbers;
 	let queue;
 
 	beforeEach(() => {
@@ -14,7 +14,7 @@ describe('Testing the Queue Data Type', () => {
 		const queueToArray = queue
 			.toString()
 			.split(',')
-			.map((strInt) => parseInt(strInt));
+			.map((strInt) => parseInt(strInt, 10));
 
 		expect(queue.size()).toBe(length);
 		expect(queueToArray).toEqual(numbers);

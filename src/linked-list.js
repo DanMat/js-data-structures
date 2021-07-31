@@ -97,6 +97,7 @@ class LinkedList {
 		let currentNode = this.head;
 		for (let index = 0; index < this.size(); index += 1) {
 			if (this.equals(element, currentNode.element)) {
+				// We return the first matching node element.
 				return index;
 			}
 			currentNode = currentNode.next;
@@ -114,7 +115,7 @@ class LinkedList {
 		if (this.head === null) return '';
 		let currentNode = this.head;
 		let objString = this.stringify(currentNode.element);
-		for (let index = 0; index < this.size(); index++) {
+		for (let index = 0; currentNode.next !== null; index++) {
 			currentNode = currentNode.next;
 			objString += `,${this.stringify(currentNode.element)}`;
 		}

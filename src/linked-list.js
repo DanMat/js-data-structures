@@ -73,7 +73,12 @@ class LinkedList {
 	}
 
 	insertAtIndex(index, element) {
-		if (this.isIndexOutOfBound(index)) return null;
+		// Handle first insert
+		if (this.size() === 0 && index === 0) {
+			return this.push(element);
+		}
+		// Verify that the insert index is within the list's size
+		if (index > this.size()) return null;
 		const node = new Node(element);
 		let currentNode = this.head;
 		if (index === 0) {

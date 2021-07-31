@@ -48,7 +48,8 @@ class LinkedList {
 		if (this.isIndexOutOfBound(index)) return null;
 		let currentNode = this.head;
 		if (index === 0) {
-			// Handle first node
+			// Handle first node by moving the head to
+			// the node the current node is pointing to
 			this.head = currentNode.next;
 		} else {
 			const previousNode = this.nodeAtIndex(index - 1);
@@ -59,6 +60,31 @@ class LinkedList {
 		}
 		this.count -= 1;
 		return currentNode.element;
+	}
+
+	insertAtIndex(index, element) {
+		if (this.isIndexOutOfBound(index)) return null;
+		const node = new Node(element);
+		let currentNode = this.head;
+		if (index === 0) {
+			// Handle first node by making the new node to point to the
+			// current node. And, updating the head to the new node.
+			node.next = currentNode;
+			this.head = node;
+		} else {
+			// Link the new node to point to the current node
+			// And, update the previous node to point to the new node
+			const previousNode = this.nodeAtIndex(index - 1);
+			currentNode = previousNode.next;
+			node.next = currentNode;
+			previousNode.next = node;
+		}
+		this.count += 1;
+		return true;
+	}
+
+	size() {
+		return this.count;
 	}
 }
 

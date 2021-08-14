@@ -1,7 +1,8 @@
 module.exports = {
 	extends: ['eslint:recommended', 'airbnb', 'prettier'],
+	parser: 'babel-eslint',
 	parserOptions: {
-		ecmaVersion: 2019,
+		ecmaVersion: 2020,
 		sourceType: 'module',
 		ecmaFeatures: {
 			impliedStrict: true

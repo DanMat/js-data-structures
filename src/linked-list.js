@@ -1,12 +1,9 @@
-import { Node } from './utils/linked-list';
-
-// The elements which are saved inside the linklist
-// can be of any type.
-
-// So, we give the ability to override the equal method
-const defaultEquals = (a, b) => a === b;
-// The node stringification can be overriden as well
-const defaultStringify = (elem) => elem;
+import {
+	Node,
+	defaultEquals,
+	defaultStringify,
+	isIndexOutOfBound,
+} from './utils/linked-list';
 
 class LinkedList {
 	constructor(equals = defaultEquals, stringifyNode = defaultStringify) {
@@ -16,14 +13,8 @@ class LinkedList {
 		this.stringify = stringifyNode;
 	}
 
-	isIndexOutOfBound(index) {
-		// Make sure that the index is less
-		// than the node count we maintain.
-		return !(index >= 0 && index < this.size());
-	}
-
 	nodeAtIndex(index) {
-		if (this.isIndexOutOfBound(index)) return null;
+		if (isIndexOutOfBound(index, this.size())) return null;
 		let node = this.head;
 		// Loop to index to get the node
 		for (let i = 0; i < index; i += 1) {
@@ -50,7 +41,7 @@ class LinkedList {
 	}
 
 	removeAtIndex(index) {
-		if (this.isIndexOutOfBound(index)) return null;
+		if (isIndexOutOfBound(index, this.size())) return null;
 		let currentNode = this.head;
 		if (index === 0) {
 			// Handle first node by moving the head to

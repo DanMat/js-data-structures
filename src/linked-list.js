@@ -14,16 +14,6 @@ class LinkedList {
 		this.stringify = stringifyNode;
 	}
 
-	nodeAtIndex(index) {
-		if (isIndexOutOfBound(index, this.size())) return null;
-		let node = this.head;
-		// Loop to index to get the node
-		for (let i = 0; i < index; i += 1) {
-			node = node.next;
-		}
-		return node;
-	}
-
 	push(element) {
 		const node = new Node(element);
 		if (this.head === null) {
@@ -39,24 +29,6 @@ class LinkedList {
 			currentNode.next = node;
 		}
 		this.count += 1;
-	}
-
-	removeAtIndex(index) {
-		if (isIndexOutOfBound(index, this.size())) return null;
-		let currentNode = this.head;
-		if (index === 0) {
-			// Handle first node by moving the head to
-			// the node the current node is pointing to
-			this.head = currentNode.next;
-		} else {
-			const previousNode = this.nodeAtIndex(index - 1);
-			currentNode = previousNode.next;
-			// We detach the node at index by re-pointing the previous
-			// node to the one the node at index is pointing to
-			previousNode.next = currentNode.next;
-		}
-		this.count -= 1;
-		return currentNode.element;
 	}
 
 	insertAtIndex(index, element) {
@@ -88,6 +60,39 @@ class LinkedList {
 		return true;
 	}
 
+	remove(element) {
+		const indexOfNode = this.indexOf(element);
+		return this.removeAtIndex(indexOfNode);
+	}
+
+	removeAtIndex(index) {
+		if (isIndexOutOfBound(index, this.size())) return null;
+		let currentNode = this.head;
+		if (index === 0) {
+			// Handle first node by moving the head to
+			// the node the current node is pointing to
+			this.head = currentNode.next;
+		} else {
+			const previousNode = this.nodeAtIndex(index - 1);
+			currentNode = previousNode.next;
+			// We detach the node at index by re-pointing the previous
+			// node to the one the node at index is pointing to
+			previousNode.next = currentNode.next;
+		}
+		this.count -= 1;
+		return currentNode.element;
+	}
+
+	nodeAtIndex(index) {
+		if (isIndexOutOfBound(index, this.size())) return null;
+		let node = this.head;
+		// Loop to index to get the node
+		for (let i = 0; i < index; i += 1) {
+			node = node.next;
+		}
+		return node;
+	}
+
 	indexOf(element) {
 		let currentNode = this.head;
 		for (let index = 0; index < this.size(); index += 1) {
@@ -100,9 +105,12 @@ class LinkedList {
 		return -1;
 	}
 
-	remove(element) {
-		const indexOfNode = this.indexOf(element);
-		return this.removeAtIndex(indexOfNode);
+	size() {
+		return this.count;
+	}
+
+	isEmpty() {
+		return this.size() === 0;
 	}
 
 	toString() {
@@ -115,14 +123,6 @@ class LinkedList {
 			objString += `,${this.stringify(currentNode.element)}`;
 		}
 		return objString;
-	}
-
-	size() {
-		return this.count;
-	}
-
-	isEmpty() {
-		return this.size() === 0;
 	}
 }
 

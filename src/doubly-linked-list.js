@@ -3,6 +3,7 @@ import {
 	defaultEquals,
 	defaultStringify,
 	DoublyNode,
+	isInsertToNewListOrInsertAtLast,
 	isValidIndex,
 } from './utils/linked-list';
 
@@ -13,19 +14,19 @@ class DoublyLinkedList extends LinkedList {
 	}
 
 	push(element) {
-		const node = new DoublyNode(element);
+		const newNode = new DoublyNode(element);
 
 		if (this.head === null) {
-			this.head = node;
-			this.tail = node;
+			this.head = newNode;
+			this.tail = newNode;
 		} else {
 			// Attach the new element to the tail
 			// And, point the previous pointer
 			// of the new element to the tail.
-			this.tail.next = node;
-			node.prev = this.tail;
+			this.tail.next = newNode;
+			newNode.prev = this.tail;
 			// Update the tail to the new element
-			this.tail = node;
+			this.tail = newNode;
 		}
 		this.count += 1;
 	}
@@ -35,39 +36,48 @@ class DoublyLinkedList extends LinkedList {
 		if (!isValidIndex(index, this.size())) return false;
 
 		// Handle empty list and last element insert
-		if ((this.size() === 0 && index === 0) || index === this.size()) {
+		if (isInsertToNewListOrInsertAtLast(index, this.size())) {
 			return this.push(element);
 		}
 
-		const node = new DoublyNode(element);
-		let current = this.head;
+		const newNode = new DoublyNode(element);
+		let currentNode = this.head;
 
 		if (index === 0) {
 			// Point the new node's next to the current head
 			// and the current head's previous to the new node.
-			node.next = this.head;
-			current.prev = node;
+			newNode.next = this.head;
+			currentNode.prev = newNode;
 			// Update the head to the new node.
-			this.head = node;
+			this.head = newNode;
 		} else {
 			// Get the previous and the node at index
-			const previous = this.nodeAtIndex(index - 1);
-			current = previous.next;
+			const previousNode = this.nodeAtIndex(index - 1);
+			currentNode = previousNode.next;
 
 			// Insert the new node inbetween them
 			// By updating the new node's pointer
 			// To the current and previous nodes
-			node.next = current;
-			node.prev = previous;
+			newNode.next = currentNode;
+			newNode.prev = previousNode;
 
 			// Next update the current and previous node's pointers
 			// to the new node we are inserting.
-			previous.next = node;
-			current.prev = node;
+			previousNode.next = newNode;
+			currentNode.prev = newNode;
 		}
 
 		this.count += 1;
 		return true;
+	}
+
+	getTail() {
+		return this.tail;
+	}
+
+	clear() {
+		super.clear();
+		this.tail = null;
 	}
 }
 

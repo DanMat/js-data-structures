@@ -57,7 +57,7 @@ describe('Testing the LinkedList Data Type', () => {
 		}
 
 		// Remove out of bound index
-		expect(linkedList.removeAtIndex(100)).toBe(null);
+		expect(linkedList.removeAtIndex(100)).toBe(undefined);
 	});
 
 	test('It should be able to delete by element', () => {
@@ -69,7 +69,7 @@ describe('Testing the LinkedList Data Type', () => {
 		}
 
 		// Remove out of bound index
-		expect(linkedList.removeAtIndex(100)).toBe(null);
+		expect(linkedList.removeAtIndex(100)).toBe(undefined);
 		expect(linkedList.isEmpty()).toBe(true);
 	});
 

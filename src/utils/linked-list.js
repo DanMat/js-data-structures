@@ -8,7 +8,7 @@ class Node {
 class DoublyNode extends Node {
 	constructor(element) {
 		super(element);
-		this.previous = null;
+		this.previous = undefined;
 	}
 }
 
@@ -22,5 +22,7 @@ export const defaultStringify = (elem) => elem;
 export const isIndexOutOfBound = (index, size) => !(index >= 0 && index < size);
 // The new index location is within bound check
 export const isValidIndex = (index, size) => !(index < 0 || index > size);
+export const isInsertToNewListOrInsertAtLast = (index, size) =>
+	(size === 0 && index === 0) || index === size;
 
 export { Node, DoublyNode };

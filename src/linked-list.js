@@ -4,6 +4,7 @@ import {
 	defaultStringify,
 	isIndexOutOfBound,
 	isValidIndex,
+	isInsertToNewListOrInsertAtLast,
 } from './utils/linked-list';
 
 class LinkedList {
@@ -15,10 +16,10 @@ class LinkedList {
 	}
 
 	push(element) {
-		const node = new Node(element);
+		const newNode = new Node(element);
 		if (this.head === null) {
 			// This handles the first push
-			this.head = node;
+			this.head = newNode;
 		} else {
 			let currentNode = this.head;
 			// Iterate to the last item
@@ -26,7 +27,7 @@ class LinkedList {
 				currentNode = currentNode.next;
 			}
 			// Assign the new node to the end
-			currentNode.next = node;
+			currentNode.next = newNode;
 		}
 		this.count += 1;
 	}
@@ -36,25 +37,29 @@ class LinkedList {
 		if (!isValidIndex(index, this.size())) return false;
 
 		// Handle empty list insert
-		if (this.size() === 0 && index === 0) {
+		if (isInsertToNewListOrInsertAtLast(index, this.size())) {
 			return this.push(element);
 		}
 
-		const node = new Node(element);
+		const newNode = new Node(element);
 		let currentNode = this.head;
 
 		if (index === 0) {
-			// Handle first node by making the new node to point to the
-			// current node. And, updating the head to the new node.
-			node.next = currentNode;
-			this.head = node;
+			// Point the new node's next to the current head
+			// and then update the head to the new node
+			newNode.next = currentNode;
+			this.head = newNode;
 		} else {
-			// Link the new node to point to the current node
-			// And, update the previous node to point to the new node
+			// Get the previous and the node at index
 			const previousNode = this.nodeAtIndex(index - 1);
 			currentNode = previousNode.next;
-			node.next = currentNode;
-			previousNode.next = node;
+
+			// Update the new node's pointer to the node
+			// which is currently in that index
+			newNode.next = currentNode;
+			// Update the previous node's pointer to point
+			// to the new node.
+			previousNode.next = newNode;
 		}
 		this.count += 1;
 		return true;
@@ -66,7 +71,7 @@ class LinkedList {
 	}
 
 	removeAtIndex(index) {
-		if (isIndexOutOfBound(index, this.size())) return null;
+		if (isIndexOutOfBound(index, this.size())) return undefined;
 		let currentNode = this.head;
 		if (index === 0) {
 			// Handle first node by moving the head to

@@ -10,13 +10,13 @@ import {
 class DoublyLinkedList extends LinkedList {
 	constructor(equals = defaultEquals, stringifyNode = defaultStringify) {
 		super(equals, stringifyNode);
-		this.tail = null;
+		this.tail = undefined;
 	}
 
 	push(element) {
 		const newNode = new DoublyNode(element);
 
-		if (this.head === null) {
+		if (this.head === undefined) {
 			this.head = newNode;
 			this.tail = newNode;
 		} else {
@@ -77,7 +77,7 @@ class DoublyLinkedList extends LinkedList {
 
 	clear() {
 		super.clear();
-		this.tail = null;
+		this.tail = undefined;
 	}
 }
 

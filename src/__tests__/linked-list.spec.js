@@ -77,7 +77,7 @@ describe('Testing the LinkedList Data Type', () => {
 		const linkedListInstance = new LinkedList();
 
 		// Random index of empty list
-		expect(linkedListInstance.nodeAtIndex(100)).toBe(null);
+		expect(linkedListInstance.nodeAtIndex(100)).toBe(undefined);
 		// Inserting out of index
 		expect(linkedListInstance.insertAtIndex(100, 100)).toBe(false);
 		// toString of empty list

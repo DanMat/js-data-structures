@@ -9,7 +9,7 @@ import {
 
 class LinkedList {
 	constructor(equals = defaultEquals, stringifyNode = defaultStringify) {
-		this.head = null;
+		this.head = undefined;
 		this.count = 0;
 		this.equals = equals;
 		this.stringify = stringifyNode;
@@ -17,7 +17,7 @@ class LinkedList {
 
 	push(element) {
 		const newNode = new Node(element);
-		if (this.head === null) {
+		if (this.head === undefined) {
 			// This handles the first push
 			this.head = newNode;
 		} else {
@@ -89,7 +89,7 @@ class LinkedList {
 	}
 
 	nodeAtIndex(index) {
-		if (isIndexOutOfBound(index, this.size())) return null;
+		if (isIndexOutOfBound(index, this.size())) return undefined;
 		let node = this.head;
 		// Loop to index to get the node
 		for (let i = 0; i < index; i += 1) {
@@ -132,7 +132,7 @@ class LinkedList {
 
 	toString() {
 		// When the list is empty
-		if (this.head === null) return '';
+		if (this.head === undefined) return '';
 		let currentNode = this.head;
 		let objString = this.stringify(currentNode.element);
 		for (let index = 0; currentNode.next !== undefined; index++) {

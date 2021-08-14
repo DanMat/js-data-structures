@@ -22,7 +22,7 @@ class LinkedList {
 		} else {
 			let currentNode = this.head;
 			// Iterate to the last item
-			while (currentNode.next !== null) {
+			while (currentNode.next !== undefined) {
 				currentNode = currentNode.next;
 			}
 			// Assign the new node to the end
@@ -97,7 +97,7 @@ class LinkedList {
 		let currentNode = this.head;
 		let index = 0;
 
-		while (currentNode !== null) {
+		while (currentNode !== undefined) {
 			if (this.equals(element, currentNode.element)) {
 				// We return the first matching node element.
 				return index;
@@ -130,7 +130,7 @@ class LinkedList {
 		if (this.head === null) return '';
 		let currentNode = this.head;
 		let objString = this.stringify(currentNode.element);
-		for (let index = 0; currentNode.next !== null; index++) {
+		for (let index = 0; currentNode.next !== undefined; index++) {
 			currentNode = currentNode.next;
 			objString += `,${this.stringify(currentNode.element)}`;
 		}

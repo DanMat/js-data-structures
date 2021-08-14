@@ -79,7 +79,7 @@ describe('Testing the LinkedList Data Type', () => {
 		// Random index of empty list
 		expect(linkedListInstance.nodeAtIndex(100)).toBe(null);
 		// Inserting out of index
-		expect(linkedListInstance.insertAtIndex(100, 100)).toBe(null);
+		expect(linkedListInstance.insertAtIndex(100, 100)).toBe(false);
 		// toString of empty list
 		expect(linkedListInstance.toString()).toBe('');
 	});

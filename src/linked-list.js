@@ -3,6 +3,7 @@ import {
 	defaultEquals,
 	defaultStringify,
 	isIndexOutOfBound,
+	isValidIndex,
 } from './utils/linked-list';
 
 class LinkedList {
@@ -59,14 +60,17 @@ class LinkedList {
 	}
 
 	insertAtIndex(index, element) {
-		// Handle first insert
+		// Handle invalid indexes
+		if (!isValidIndex(index, this.size())) return false;
+
+		// Handle empty list insert
 		if (this.size() === 0 && index === 0) {
 			return this.push(element);
 		}
-		// Verify that the insert index is within the list's size
-		if (index > this.size()) return null;
+
 		const node = new Node(element);
 		let currentNode = this.head;
+
 		if (index === 0) {
 			// Handle first node by making the new node to point to the
 			// current node. And, updating the head to the new node.

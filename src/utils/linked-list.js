@@ -20,5 +20,7 @@ export const defaultEquals = (a, b) => a === b;
 export const defaultStringify = (elem) => elem;
 
 export const isIndexOutOfBound = (index, size) => !(index >= 0 && index < size);
+// The new index location is within bound check
+export const isValidIndex = (index, size) => !(index < 0 || index > size);
 
 export { Node, DoublyNode };

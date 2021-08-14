@@ -95,14 +95,21 @@ class LinkedList {
 
 	indexOf(element) {
 		let currentNode = this.head;
-		for (let index = 0; index < this.size(); index += 1) {
+		let index = 0;
+
+		while (currentNode !== null) {
 			if (this.equals(element, currentNode.element)) {
 				// We return the first matching node element.
 				return index;
 			}
+			index += 1;
 			currentNode = currentNode.next;
 		}
 		return -1;
+	}
+
+	getHead() {
+		return this.head;
 	}
 
 	size() {
@@ -111,6 +118,11 @@ class LinkedList {
 
 	isEmpty() {
 		return this.size() === 0;
+	}
+
+	clear() {
+		this.head = undefined;
+		this.count = 0;
 	}
 
 	toString() {

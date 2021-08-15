@@ -4,6 +4,7 @@ import {
 	defaultStringify,
 	DoublyNode,
 	isInsertToNewListOrInsertAtLast,
+	isIndexOutOfBound,
 	isValidIndex,
 } from './utils/linked-list';
 
@@ -69,6 +70,46 @@ class DoublyLinkedList extends LinkedList {
 
 		this.count += 1;
 		return true;
+	}
+
+	removeAtIndex(index) {
+		if (isIndexOutOfBound(index, this.size())) return undefined;
+		let currentNode = this.head;
+
+		if (index === 0) {
+			if (this.size() === 1) {
+				// When there is only one element in the list
+				// deleting that is eqivalent to clearing the list
+				this.head = undefined;
+				this.tail = undefined;
+			} else {
+				// Point the head of the list to node after the current head node.
+				this.head = currentNode.next;
+				// This clears the reference to the previous head node.
+				this.head.prev = undefined;
+			}
+		} else if (index === this.size() - 1) {
+			// Deleting the last element of the node
+			// needs the tail to be updated as well
+			currentNode = this.tail;
+			this.tail = currentNode.prev;
+			// This clears the reference to the previous tail node.
+			this.tail.next = undefined;
+		} else {
+			// Get the node which is at index and the previous node
+			currentNode = this.nodeAtIndex(index);
+			const previousNode = currentNode.prev;
+
+			// Point the previous node to the node
+			// which is after the node at index.
+			previousNode.next = currentNode.next;
+			// Point the node which is after the
+			// index back to the previous node
+			currentNode.next.prev = previousNode;
+		}
+
+		this.count -= 1;
+		return currentNode.element;
 	}
 
 	getTail() {

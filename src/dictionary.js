@@ -21,6 +21,12 @@ export default class Dictionary {
 		return false;
 	}
 
+	get(key) {
+		return this.hasKey(key)
+			? this.table[this.toStringFn(key)].getValue()
+			: undefined;
+	}
+
 	keyValues() {
 		return Object.values(this.table);
 	}

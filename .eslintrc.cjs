@@ -65,7 +65,10 @@ module.exports = {
 
 		// Prevent logs but allow info, error and warning.
 		'no-console': [2, { allow: ['info', 'warn', 'error'] }],
-		'max-classes-per-file': ['off']
+		'max-classes-per-file': ['off'],
+
+		// Allow for of loop
+		'no-restricted-syntax': ["error", "ForInStatement", "LabeledStatement", "WithStatement"]
 	},
 	env: {
 		browser: true,

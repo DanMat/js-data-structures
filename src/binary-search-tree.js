@@ -1,5 +1,43 @@
 import { Compare, defaultCompare, Node, print } from './utils/tree';
 
+/**
+ * These methods are scoped for the usage BST
+ */
+const minNode = (node) => {
+	let current = node;
+	while (current.left !== undefined) {
+		current = current.left;
+	}
+	return current;
+};
+
+const maxNode = (node) => {
+	let current = node;
+	while (current.right !== undefined) {
+		current = current.right;
+	}
+	return current;
+};
+
+const searchNode = (node, searchKey) => {
+	if (node === undefined) {
+		return false;
+	}
+
+	if (
+		this.compareFn({ currentNode: node.key, key: searchKey }) ===
+		Compare.BIGGER_THAN
+	) {
+		return searchNode(node.right, searchKey);
+	} else if (
+		this.compareFn({ currentNode: node.key, key: searchKey }) ===
+		Compare.LESS_THAN
+	) {
+		return searchNode(node.left, searchKey);
+	}
+	return true;
+};
+
 export default class BinarySearchTree {
 	constructor(compareFn = defaultCompare) {
 		this.root = undefined;
@@ -72,53 +110,81 @@ export default class BinarySearchTree {
 	}
 
 	min() {
-		const minNode = (node) => {
-			let current = node;
-			while (current.left !== undefined) {
-				current = current.left;
-			}
-			return current.key;
-		};
-
 		return this.root === undefined
 			? print('Tree is empty.')
-			: minNode(this.root);
+			: minNode(this.root).key;
 	}
 
 	max() {
-		const maxNode = (node) => {
-			let current = node;
-			while (current.right !== undefined) {
-				current = current.right;
-			}
-			return current.key;
-		};
-
 		return this.root === undefined
 			? print('Tree is empty.')
-			: maxNode(this.root);
+			: maxNode(this.root).key;
 	}
 
 	search(key) {
-		const searchNode = (node, searchKey) => {
-			if (node === undefined) {
-				return false;
-			}
+		return searchNode(this.root, key);
+	}
 
+	remove(key) {
+		const removeNode = (node, deleteKey) => {
+			// Search for the key first
+			if (node === undefined) {
+				return undefined;
+			}
 			if (
-				this.compareFn({ currentNode: node.key, key: searchKey }) ===
+				this.compareFn({ currentNode: node.key, key: deleteKey }) ===
 				Compare.BIGGER_THAN
 			) {
-				return searchNode(node.right, searchKey);
+				// Update the parent reference of the child with the
+				// changes that might occur in the recursion
+				node.right = removeNode(node.right, deleteKey);
+				// This returns the updated node value to the
+				// previous iteration of the recursion.
+				return node;
 			} else if (
-				this.compareFn({ currentNode: node.key, key: searchKey }) ===
+				this.compareFn({ currentNode: node.key, key: deleteKey }) ===
 				Compare.LESS_THAN
 			) {
-				return searchNode(node.left, searchKey);
+				node.left = removeNode(node.left, deleteKey);
+				return node;
 			}
-			return true;
+
+			// We found a match at this point to the deleteKey
+			// case 1: Delete leaf node
+			if (node.left === undefined && node.right === undefined) {
+				node = undefined;
+				// This will update the parent node's reference
+				// of the leaf node to undefined.
+				return node;
+			}
+
+			// case 2: Node has one child
+			if (node.left === undefined) {
+				// Replace the current node with the right child
+				node = node.right;
+				// Return the updated node to update
+				// the parent's reference.
+				return node;
+			} else if (node.right === undefined) {
+				// Replace the current node with the left child
+				node = node.left;
+				return node;
+			}
+
+			// case 3: Node with 2 children
+			const minNodeInRightSubTree = minNode(node.right);
+			// Update the key which needs to be removed with
+			// the min node from the right-hand side subtree
+			node.key = minNodeInRightSubTree.key;
+			// The previous step created a duplicate node.
+			// So, we need to delete the min value we found
+			// on the right-hand side subtree and update our
+			// current nodes right reference with the new structure.
+			node.right = removeNode(node.right, minNodeInRightSubTree.key);
+			// Return the updated node
+			return node;
 		};
 
-		return searchNode(this.root, key);
+		this.root = removeNode(this.root, key);
 	}
 }

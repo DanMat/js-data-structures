@@ -68,7 +68,10 @@ module.exports = {
 		'max-classes-per-file': ['off'],
 
 		// Allow for of loop
-		'no-restricted-syntax': ["error", "ForInStatement", "LabeledStatement", "WithStatement"]
+		'no-restricted-syntax': ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+
+		// Need to assign to params for recursive method in tree
+		'no-param-reassign': ['off']
 	},
 	env: {
 		browser: true,

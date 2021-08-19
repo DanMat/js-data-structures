@@ -1,7 +1,7 @@
 import { Compare, defaultCompare, Node, print } from './utils/tree';
 
 /**
- * These methods are scoped for the usage BST
+ * These methods are scoped for the usage of BST
  */
 const minNode = (node) => {
 	let current = node;

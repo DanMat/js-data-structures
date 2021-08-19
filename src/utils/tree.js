@@ -19,4 +19,6 @@ export const defaultCompare = ({ currentNode, newKey }) => {
 	return newKey > currentNode ? Compare.BIGGER_THAN : Compare.LESS_THAN;
 };
 
+export const printNode = (element) => console.info(element);
+
 export { Node };

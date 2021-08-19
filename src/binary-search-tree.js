@@ -1,4 +1,4 @@
-import { Compare, defaultCompare, Node } from './utils/tree';
+import { Compare, defaultCompare, Node, printNode } from './utils/tree';
 
 export default class BinarySearchTree {
 	constructor(compareFn = defaultCompare) {
@@ -30,5 +30,44 @@ export default class BinarySearchTree {
 		} else {
 			insertNode(this.root, key);
 		}
+	}
+
+	// Go to the smallest leaf first
+	inOrderTraverse(callback = printNode) {
+		const inOrderTraverseNode = (node, callbk) => {
+			if (node !== undefined) {
+				inOrderTraverseNode(node.left, callbk);
+				callbk(node.key);
+				inOrderTraverseNode(node.right, callbk);
+			}
+		};
+
+		inOrderTraverseNode(this.root, callback);
+	}
+
+	// Visit the node prior to it's descendant
+	preOrderTraverse(callback = printNode) {
+		const preOrderTraverseNode = (node, callbk) => {
+			if (node !== undefined) {
+				callbk(node.key);
+				preOrderTraverseNode(node.left, callbk);
+				preOrderTraverseNode(node.right, callbk);
+			}
+		};
+
+		preOrderTraverseNode(this.root, callback);
+	}
+
+	// Visit the node after visiting the descendant
+	postOrderTraverse(callback = printNode) {
+		const postOrderTraverseNode = (node, callbk) => {
+			if (node !== undefined) {
+				postOrderTraverseNode(node.left, callbk);
+				postOrderTraverseNode(node.right, callbk);
+				callbk(node.key);
+			}
+		};
+
+		postOrderTraverseNode(this.root, callback);
 	}
 }

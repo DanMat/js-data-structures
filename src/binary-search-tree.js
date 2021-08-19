@@ -1,4 +1,4 @@
-import { Compare, defaultCompare, Node, printNode } from './utils/tree';
+import { Compare, defaultCompare, Node, print } from './utils/tree';
 
 export default class BinarySearchTree {
 	constructor(compareFn = defaultCompare) {
@@ -9,7 +9,7 @@ export default class BinarySearchTree {
 	insert(key) {
 		const insertNode = (node, newKey) => {
 			if (
-				this.compareFn({ currentNode: node.key, newKey }) ===
+				this.compareFn({ currentNode: node.key, key: newKey }) ===
 				Compare.BIGGER_THAN
 			) {
 				if (node.right === undefined) {
@@ -33,7 +33,7 @@ export default class BinarySearchTree {
 	}
 
 	// Go to the smallest leaf first
-	inOrderTraverse(callback = printNode) {
+	inOrderTraverse(callback = print) {
 		const inOrderTraverseNode = (node, callbk) => {
 			if (node !== undefined) {
 				inOrderTraverseNode(node.left, callbk);
@@ -46,7 +46,7 @@ export default class BinarySearchTree {
 	}
 
 	// Visit the node prior to it's descendant
-	preOrderTraverse(callback = printNode) {
+	preOrderTraverse(callback = print) {
 		const preOrderTraverseNode = (node, callbk) => {
 			if (node !== undefined) {
 				callbk(node.key);
@@ -59,7 +59,7 @@ export default class BinarySearchTree {
 	}
 
 	// Visit the node after visiting the descendant
-	postOrderTraverse(callback = printNode) {
+	postOrderTraverse(callback = print) {
 		const postOrderTraverseNode = (node, callbk) => {
 			if (node !== undefined) {
 				postOrderTraverseNode(node.left, callbk);
@@ -69,5 +69,56 @@ export default class BinarySearchTree {
 		};
 
 		postOrderTraverseNode(this.root, callback);
+	}
+
+	min() {
+		const minNode = (node) => {
+			let current = node;
+			while (current.left !== undefined) {
+				current = current.left;
+			}
+			return current.key;
+		};
+
+		return this.root === undefined
+			? print('Tree is empty.')
+			: minNode(this.root);
+	}
+
+	max() {
+		const maxNode = (node) => {
+			let current = node;
+			while (current.right !== undefined) {
+				current = current.right;
+			}
+			return current.key;
+		};
+
+		return this.root === undefined
+			? print('Tree is empty.')
+			: maxNode(this.root);
+	}
+
+	search(key) {
+		const searchNode = (node, searchKey) => {
+			if (node === undefined) {
+				return false;
+			}
+
+			if (
+				this.compareFn({ currentNode: node.key, key: searchKey }) ===
+				Compare.BIGGER_THAN
+			) {
+				return searchNode(node.right, searchKey);
+			} else if (
+				this.compareFn({ currentNode: node.key, key: searchKey }) ===
+				Compare.LESS_THAN
+			) {
+				return searchNode(node.left, searchKey);
+			}
+			return true;
+		};
+
+		return searchNode(this.root, key);
 	}
 }

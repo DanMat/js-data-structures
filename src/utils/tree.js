@@ -12,13 +12,13 @@ export const Compare = {
 	EQUALS: 0,
 };
 
-export const defaultCompare = ({ currentNode, newKey }) => {
-	if (currentNode === newKey) {
+export const defaultCompare = ({ currentNode, key }) => {
+	if (currentNode === key) {
 		return Compare.EQUALS;
 	}
-	return newKey > currentNode ? Compare.BIGGER_THAN : Compare.LESS_THAN;
+	return key > currentNode ? Compare.BIGGER_THAN : Compare.LESS_THAN;
 };
 
-export const printNode = (element) => console.info(element);
+export const print = (value) => console.info(value);
 
 export { Node };

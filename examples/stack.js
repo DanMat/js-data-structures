@@ -1,4 +1,4 @@
-import { Stack } from '../src/index.js';
+import { Stack } from '../src/data-structures';
 
 const DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 

@@ -42,7 +42,7 @@ class MinHeap {
 			// This will swap the value with the parent
 			// Till the parent is smaller than the
 			// value being inserted
-			this.bubbleUp(this.heap.length - 1);
+			this.bubbleUp(this.size() - 1);
 			return true;
 		}
 		return false;

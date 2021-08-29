@@ -16,11 +16,11 @@ import { Compare, defaultCompare, swap } from './utils/tree';
  *
  */
 
-const _getLeftChildIndex = (index) => {
+const getLeftChildIndex = (index) => {
 	return 2 * index + 1;
 };
 
-const _getRightChildIndex = (index) => {
+const getRightChildIndex = (index) => {
 	return 2 * index + 2;
 };
 
@@ -46,6 +46,53 @@ class MinHeap {
 			return true;
 		}
 		return false;
+	}
+
+	// Removes the min value
+	extract() {
+		if (this.isEmpty()) return undefined;
+		const firstValue = this.heap.shift();
+		if (this.size() > 1) this.sinkDown(0);
+		return firstValue;
+	}
+
+	sinkDown(index) {
+		let key = index;
+		const leftIndex = getLeftChildIndex(index);
+		const rightIndex = getRightChildIndex(index);
+		const size = this.size();
+
+		// Update the key if the element
+		// is smaller than it's left child.
+		if (
+			leftIndex < size &&
+			this.compareFn({
+				currentNode: this.heap[leftIndex],
+				key: this.heap[key],
+			}) === Compare.BIGGER_THAN
+		) {
+			key = leftIndex;
+		}
+
+		// Update the key if the element
+		// is smaller than it's right child.
+		if (
+			rightIndex < size &&
+			this.compareFn({
+				currentNode: this.heap[rightIndex],
+				key: this.heap[key],
+			}) === Compare.BIGGER_THAN
+		) {
+			key = rightIndex;
+		}
+
+		// If a smaller value is detcted
+		// than the current index. Then swap
+		if (index !== key) {
+			swap(this.heap, index, key);
+			// Keep travelling down the path
+			this.sinkDown(key);
+		}
 	}
 
 	bubbleUp(index) {

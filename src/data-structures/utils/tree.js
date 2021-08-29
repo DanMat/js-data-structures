@@ -21,4 +21,8 @@ export const defaultCompare = ({ currentNode, key }) => {
 
 export const print = (value) => console.info(value);
 
+export const swap = (list, i, j) => {
+	[list[i], list[j]] = [list[j], list[i]];
+};
+
 export { Node };

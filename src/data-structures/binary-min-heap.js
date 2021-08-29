@@ -37,9 +37,12 @@ class MinHeap {
 
 	insert(value) {
 		if (value !== null) {
-			const index = this.heap.length;
+			// The new element is pushed at the end
 			this.heap.push(value);
-			this.bubbleUp(index);
+			// This will swap the value with the parent
+			// Till the parent is smaller than the
+			// value being inserted
+			this.bubbleUp(this.heap.length - 1);
 			return true;
 		}
 		return false;
@@ -54,7 +57,13 @@ class MinHeap {
 				key: this.heap[parent],
 			}) === Compare.BIGGER_THAN
 		) {
+			// The parent of the current index
+			// is bigger than the index.
+			// So, swap them.
 			swap(this.heap, parent, index);
+
+			// Repeat this all the way
+			// up to the root index
 			index = parent;
 			parent = getParentIndex(index);
 		}
